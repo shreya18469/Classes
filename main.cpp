@@ -64,16 +64,17 @@ void addMedia(vector <media*>* medialist) {
     cin.get(pubs, 100);
     cin.get();
     mu->setPublisher(pubs);
-    char artist[100];cout << "Who is the artist?" << endl;
-    cin.get();
-    cin.get(artist, 100);
-    cin.get();
-    mu->setArtist(artist);
     int dur = 0;
     cout << "How long is the song(seconds)?" << endl;
     cin >> dur;
     mu->setDuration(dur);
     medialist->push_back(mu);
+    char artist[100];
+    cout << "Who is the artist?" << endl;
+    cin.get();
+    cin.get(artist, 100);
+    cin.get();
+    mu->setArtist(artist);
   }
   //add movies after user inputs data
   else if (mediatype == 3) {
@@ -149,12 +150,21 @@ void deleteMedia(vector <media*>* medialist) { // delete media from the database
 	}
       }
       if (index > -1) { // erase media
+	char yn;
+	cout << "Are you sure you want to delete this? Enter y or n." << endl;
+	cin >> yn;
+	if (yn == 'y'){
 	foundt = true;
 	delete (*medialist)[index]; 
 	medialist->erase(medialist->begin()+index);
+	cout << "Deleted." << endl;
 	index = -1;
+	} else {
+	  cout << "Cancelled delete." << endl;
+	  return;
+	}
       }
-    }
+    } 
     while(foundt);
   }
 
@@ -195,11 +205,19 @@ void deleteMedia(vector <media*>* medialist) { // delete media from the database
     }
     }
     if (index > -1) {
+      char yn;
+      cout << "Are you sure you want to delete this? Enter y or n." << endl;
+      cin >> yn;
+      if (yn == 'y'){
       found = true;
       delete (*medialist)[index];
       medialist->erase(medialist->begin()+index);
-
+      cout << "Deleted." << endl;
       index = -1;
+      } else{
+	cout << "Cancelled delete." << endl;
+ 	return;
+      } 
     }
 
  } while (found);
@@ -317,23 +335,23 @@ int main() {
   getResponse(response);
 
   while (running == true) {
-    if (strstr(response, "ADD")) {
+    if (response[0] == 'A' && response[1] == 'D' && response[2] == 'D') {
       addMedia(medialist);
       getResponse(response);
  }
-    else if (strstr(response, "SEARCH")) {
+    else if (response[0] == 'S' && response[1] == 'E' && response[2] == 'A' && response[3] =='R' && response[4] == 'C' && response[5] == 'H') {
    searchMedia(medialist);
    getResponse(response);
  }
-    else if (strstr(response, "DELETE")) {
+    else if (response[0] == 'D' && response[1] == 'E' && response[2] == 'L' && response[3] == 'E' && response[4] == 'T' && response[5] == 'E') {
       deleteMedia(medialist);
       getResponse(response);
  }
-    else if (strstr(response, "PRINT")) {
+    else if (response[0] == 'P' && response[1] == 'R' && response[2] == 'I' && response[3] =='N' && response[4] == 'T') {
       printMedia(medialist);
       getResponse(response);
  }
-      else if (strcmp(response, "QUIT")) {
+      else if (response[0] == 'Q' && response[1] == 'U' && response[2] == 'I' && response[3] =='T') {
 	return 0;
    }
       else {
