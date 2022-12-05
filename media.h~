@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+//void addMedia();
+//void searchMedia();
+
+#ifndef MEDIA_H
+#define MEDIA_H
+
+//media class (where all three medias have an overlap)
+class media {
+ public:
+  media();
+  ~media();
+  void setTitle(char t[]);
+  char* getTitle();
+  void setYear(int y);
+  int getYear();
+ virtual int getType();
+ private:
+  int year;
+  char title[100];
+};
+
+
+#endif
